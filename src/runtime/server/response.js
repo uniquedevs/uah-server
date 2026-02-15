@@ -1,4 +1,4 @@
-export { respondError } from './response/respondError.js';
+export { respondError, setOnError} from './response/respondError.js';
 
 const { stringify } = JSON;
 
