@@ -1,6 +1,8 @@
 import { isObject } from '#runtime/types/checker.js';
 import { stringify } from '#runtime/types/json.js';
 
+export let onError = null;
+
 export function respondError(res, error) {
   if (error) {
     const status = error.status || 500;
@@ -30,6 +32,7 @@ export function respondError(res, error) {
     if (status === 500) {
       console.error(error);
     }
+    onError?.(error, status, res.context);
   } else if (res.context.isConnected) {
     res.cork(() => {
       res.writeStatus('204').end();
