@@ -1,6 +1,7 @@
+import { Duration } from '@uah/postgres';
+import { Context } from '../context.js';
 import { signal } from '#runtime/process.js';
 import { now } from '#runtime/utils/native.js';
-import { Duration } from '@uah/postgres';
 
 const timers = new Map();
 const schedulers = new Set();
@@ -51,7 +52,7 @@ async function start(timer) {
   }
 }
 
-export class SchedulerContext {
+export class SchedulerContext extends Context {
   priority = 0;
   interval = '';
 
@@ -59,7 +60,7 @@ export class SchedulerContext {
   isInitiated = false;
 
   constructor() {
-    schedulers.add(this);
+    schedulers.add(super());
   }
 
   async init() {}
